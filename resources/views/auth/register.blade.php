@@ -19,6 +19,12 @@
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
             </div>
 
+            {{-- family --}}
+            <div class="mt-4">
+                <x-label for="family" :value="__('family')" />
+
+                <x-input id="family" class="block mt-1 w-full" type="test" name="family" :value="old('family')" required />
+            </div>
             <!-- Email Address -->
             <div class="mt-4">
                 <x-label for="email" :value="__('Email')" />
@@ -26,6 +32,49 @@
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
 
+            {{-- city --}}
+            <div class="mt-4">
+                <x-label for="city" :value="__('city')" />
+
+                <x-input id="city" class="block mt-1 w-full" type="city" name="city" :value="old('city')" required />
+            </div>
+
+                {{-- word --}}
+            <div class="mt-4">
+                <x-label for="word" :value="__('word')" />
+
+                <x-input id="word" class="block mt-1 w-full" type="word" name="word" :value="old('word')" required />
+            </div>
+
+
+            {{-- post --}}
+            <div class="mt-4">
+                <x-label for="post" :value="__('post')" />
+
+                <x-input id="post" class="block mt-1 w-full" type="post" name="post" :value="old('post')" required />
+            </div>
+
+            {{-- phone --}}
+            <div class="mt-4">
+                <x-label for="phone" :value="__('phone')" />
+
+                <x-input id="phone" class="block mt-1 w-full" type="phone" name="phone" :value="old('phone')" required />
+            </div>
+
+            {{-- data --}}
+
+            <div class="mt-4">
+                <x-label for="data" :value="__('data')" />
+
+                <x-input id="data" class="block mt-1 w-full" type="data" name="data" :value="old('data')" required />
+            </div>
+
+                    {{-- file --}}
+            <div class="mt-4">
+                <x-label for="file" :value="__('file')" />
+
+                <x-input id="file" class="block mt-1 w-full" type="file" name="file" :value="old('file')" required />
+            </div>
             <!-- Password -->
             <div class="mt-4">
                 <x-label for="password" :value="__('Password')" />
