@@ -3,7 +3,7 @@
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Contracts\Validation\Validator;
 class UserCreateRequest extends FormRequest
 {
     /**
@@ -24,15 +24,21 @@ class UserCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' =>[ 'required' , 'string' , 'min:3' ],
-            'family' =>[ 'required' , 'string' , 'min:3' ],
-            'email' =>[ 'required' , 'email' , 'min:3' ],
-            'city' =>[ 'required' , 'string' , 'min:3' ],
-            'word' =>[ 'required' , 'string' , 'min:3' ],
-            'post' =>[ 'required' , 'string' , 'min:3' ],
-            'phone' =>[ 'required' , 'numeric' , 'min:11' ,'max:13' ],
+            'name' =>['required','string','min:3','max:191'],
+            'family' =>['required','string','min:3','max:191'],
+            'email' =>['required', 'string', 'email', 'max:255', 'unique:users'],
+            'city' =>['required','string','min:3','max:191'],
+            'word' =>['required','string','min:3','max:191'],
+            'post' =>['required','string','min:3','max:191'],
+            'phone' =>[ 'required', 'number', 'max:14', 'unique:users' ],
             'data' =>[ 'required' ],
-            'file' =>[ 'required' ],
         ];
     }
+
+    // public function failedValidation(Validator $validator)
+    // {
+
+    //     return back()->with('flash_message',
+    //         $validator->errors()->first());
+    // }
 }

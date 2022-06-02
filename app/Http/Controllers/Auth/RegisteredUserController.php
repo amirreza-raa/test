@@ -32,7 +32,7 @@ class RegisteredUserController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
-    {
+    { 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'family' =>[ 'required' , 'string' , 'min:3' ],
@@ -40,25 +40,40 @@ class RegisteredUserController extends Controller
             'city' =>[ 'required' , 'string' , 'min:3' ],
             'word' =>[ 'required' , 'string' , 'min:3' ],
             'post' =>[ 'required' , 'string' , 'min:3' ],
-            'phone' =>[ 'required' , 'numeric' , 'min:11' ,'max:13' ],
-            'data' =>[ 'required' ],
+            'phone' =>[ 'required' , 'numeric' ],
+            'date' =>[ 'required' ],
             'file' =>[ 'required' ],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
 
         ]);
+      
 
-        $user = User::create([
-            'name' => $request->name,
-            'family' => $request->family,
-            'email' => $request->email,
-            'city' => $request->city,
-            'word' => $request->word,
-            'post' => $request->post,
-            'phone' => $request->phone,
-            'data' => $request->data,
-            'file' => $request->file,
-            'password' => Hash::make($request->password),
-        ]);
+            $user = new User();
+            $user->name=$request->name;
+          $user->family=$request->family;
+           $user->email=$request->email;
+        $user->city=$request->city;
+            $user->word=$request->word;
+            $user->post=$request->post;
+           $user->phone=$request->phone;
+            $user->date=$request->date;
+            $user->file=$request->file;
+            // $user->password=$request->bcrypt('password');
+            // $user->password =$request-> Hash::make($request->password),
+            $user->password=$request->password;
+            $user->save();
+
+            // 'name' => $request->name,
+            // 'family' => $request->family,
+            // 'email' => $request->email,
+            // 'city' => $request->city,
+            // 'word' => $request->word,
+            // 'post' => $request->post,
+            // 'phone' => $request->phone,
+            // 'data' => $request->data,
+            // 'file' => $request->file,
+            // 'password' => Hash::make($request->password),
+       
 
         event(new Registered($user));
 

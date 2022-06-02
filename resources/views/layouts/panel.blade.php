@@ -156,40 +156,10 @@
     <!-- Page Body Start-->
     <div class="page-body-wrapper">
       <!-- Page Sidebar Start-->
-      <div class="page-sidebar">
-        <div class="main-header-left d-none d-lg-block">
-          <div class="logo-wrapper"><a href="index.html"><img src="{{asset('images/endless-logo.png')}}" alt=""></a></div>
-        </div>
-        <div class="sidebar custom-scrollbar">
-          <div class="sidebar-user text-center">
-            <div><img class="img-60 rounded-circle" src="{{asset('images/user/1.jpg')}}" alt="#">
-              <div class="profile-edit"><a href="edit-profile.html" target="_blank"><i data-feather="edit"></i></a>
-              </div>
-            </div>
-            <h6 class="mt-3 f-14">پارادایم</h6>
-            <p>مدیر کل.</p>
-          </div>
-          <ul class="sidebar-menu">
-            <li><a class="sidebar-header" href="#"><i data-feather="home"></i><span>کاربران</span><span
-                  class="badge badge-pill badge-primary">2</span><i class="fa fa-angle-right pull-right"></i></a>
-              <ul class="sidebar-submenu">
-                <li><a href="{{ route('users.create') }}"><i class="fa fa-circle"></i><span>ساخت کاربر</span></a></li>
-                <li><a href="{{ route('users.index') }}"><i class="fa fa-circle"></i><span>لیست کاربران</span></a></li>
-
-              </ul>
-            </li>
-            <li><a class="sidebar-header" href="#"><i data-feather="home"></i><span>کمپین ها</span><span
-              class="badge badge-pill badge-primary">2</span><i class="fa fa-angle-right pull-right"></i></a>
-          <ul class="sidebar-submenu">
-            <li><a href="campaign-details.html"><i class="fa fa-circle"></i><span>جزئیات</span></a></li>
-            <li><a href="campaign-parsing.html"><i class="fa fa-circle"></i><span>تجزیه و آمار</span></a></li>
-   
-          </ul>
-        </li>
-          </ul>
-        </div>
-      </div>
+      @include('partish.side')
       <!-- Page Sidebar Ends-->
+
+      
       <!-- Right sidebar Start-->
       <div class="right-sidebar" id="right_side_bar">
         <div class="container p-0">
@@ -260,12 +230,13 @@
         </div>
       </div>
       <!-- Right sidebar Ends-->
-
-      @yield('main')
+<span class="">
+  @yield('main')
+</span>
 
       <!-- footer start-->
       <footer class="footer">
-        <div class="container-fluid">
+        <div class="">
           <div class="row">
             <div class="col-md-6 footer-copyright">
               <p class="mb-0">کپی رایت 2018 © اندلس همه حقوق محفوظ است.</p>
@@ -310,7 +281,24 @@
    <!--insert and delete operator-->
  <script src="{{asset('js/add-files.js')}}"></script>
 
-
+ <script>
+  function destroyUser(event, id) {
+    event.preventDefault();
+    Swal.fire({
+    title: 'ایا مطمئن هستید این کار را میخواهید حذف کنید؟',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: 'rgb(221, 51, 51)',
+    cancelButtonColor: 'rgb(48, 133, 214)',
+    confirmButtonText: 'بله حذف کن!',
+    cancelButtonText: 'کنسل'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      document.getElementById(`destroy-user-${id}`).submit()
+    }
+  })
+  }
+</script>
  
 </body>
 

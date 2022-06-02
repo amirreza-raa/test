@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Article\ArticleController;
+use App\Http\Controllers\Panel\CategoryController;
+use App\Http\Controllers\Panel\PostController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,16 +16,20 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::resource('/users',UserController::class);
-
-
 Route::get('/dashboard', function () {
     return view('layouts.panel');
 })->middleware(['auth'])->name('dashboard');
+
+
+Route::resource('/users',UserController::class)->middleware('auth')->except('show');
+
+Route::resource('/categorys' , CategoryController::class)->middleware('auth')->except('show');
+
+Route::resource('/posts' , PostController::class)->middleware('auth')->except('show');
+ 
+Route::resource('/articles' , ArticleController::class);
 
 require __DIR__.'/auth.php';

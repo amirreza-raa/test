@@ -88,6 +88,11 @@
                     <th scope="col">نام اصلی</th>
                     <th scope="col">نام خانوادگی</th>
                     <th scope="col">آدرس الکترونیکی </th>
+                    <th scope="col">شهر</th>
+                    <th scope="col">منطقه</th>
+                    <th scope="col">درجه</th>
+                    <th scope="col">شماره تلفن</th>
+                    <th scope="col">تاریخ </th>
                     <th scope="col">ویرایش</th>
                     <th scope="col">حذف</th>
                   </tr>
@@ -101,14 +106,25 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->family }}</td>
                     <td>{{ $user->email }}</td>
+                    <td>{{ $user->city }}</td>
+                    <td>{{ $user->word }}</td>
+                    <td>{{ $user->post }}</td>
+                    <td>{{ $user->phone }}</td>
+                    <td>{{ $user->getCreatedAtInJalali() }}</td>
                     <td>
-                      <a href="#"> <button class="btn btn-primary" type="button">ویرایش</button></a>
+                      <a href="{{ route('users.edit' ,  $user->id) }}"> <button class="btn btn-primary" type="button">ویرایش</button></a>
                     </td>
                     <td>
                       <button class="btn btn-danger" type="button" data-toggle="modal"
                         data-target="#myModal">حذف</button>
+                      
+                        <a href="{{ route('users.destroy', $user->id) }}" onclick="destroyUser(event, {{ $user->id }})" class="item-delete mlg-15" title="حذف"></a>
                     </td>
                   </tr>
+                  <form action="{{ route('users.destroy', $user->id) }}" method="post" id="destroy-user-{{ $user->id }}">
+                    @csrf
+                    @method('delete')
+                  </form>
 
                   @endforeach
                 </tbody>
@@ -128,11 +144,26 @@
             </div>
           </div>
         </div>
-  
       </div>
-  
     </div>
     <!-- Container-fluid Ends-->
   </div>
-
+<script>
+  function destroyUser(event, id) {
+    event.preventDefault();
+    Swal.fire({
+    title: 'ایا مطمئن هستید این کار را میخواهید حذف کنید؟',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: 'rgb(221, 51, 51)',
+    cancelButtonColor: 'rgb(48, 133, 214)',
+    confirmButtonText: 'بله حذف کن!',
+    cancelButtonText: 'کنسل'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      document.getElementById(`destroy-user-${id}`).submit()
+    }
+  })
+  }
+</script>
 @endsection
